@@ -105,17 +105,23 @@ public class While {
         // 메뉴가 20개까지만 한정판매 => 솔드아웃 가게 샷다 내림 출력
         // 이 때 14번이 노쇼 => **번 노쇼 발생! 출력
         // 이것을 while문
-        int k = 0;
+        int k=1;
         while (k <= 50) {
-            System.out.println(++k + "번 손님 입장!");
+
             if (k == 14) {
-                System.out.println();
-                continue;
+                System.out.println("14번 노쇼 발생!");
+                k++;
             }
+            else {
+                System.out.println(k + "번 손님 입장!");
+                k++;
+            }
+
             if (k == 20) {
                 System.out.println("솔드아웃");
                 break;
             }
+
         }
         System.out.println("영업종료");
     }
