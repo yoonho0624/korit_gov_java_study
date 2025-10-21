@@ -38,7 +38,7 @@ public class DoWhile {
                 case 2:
                     System.out.println("취소를 합니다.");
                     break;
-                case 3:
+                case 0:
                     System.out.println("종료합니다.");
                     break;
                 default:
