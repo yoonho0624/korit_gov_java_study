@@ -35,6 +35,7 @@ public class Main {
         phoneFactory1.produce("갤럭시S 25");
 
         TabletFactory tabletFactory1 = new TabletFactory();
+        tabletFactory1.setFactoryName("애플 태블릿 공장");
         tabletFactory1.produce("아이패드 미니 6세대");
         tabletFactory1.manage();
         tabletFactory1.upgrade("아이패드 미니 7세대");
