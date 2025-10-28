@@ -19,7 +19,7 @@ public class Circle extends Shape {
 
     @Override
     protected void drawInternal() {
-        System.out.println("원 그리기 " + r + " = " + (r * r * 3.14));
+        System.out.println("원 그리기 " + r + " = " + r);
     }
 
     @Override

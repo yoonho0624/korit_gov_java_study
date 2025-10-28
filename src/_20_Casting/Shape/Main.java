@@ -13,5 +13,12 @@ public class Main {
         shape2.drawInternal();
         System.out.println(shape2.area());
         shape2.render();
+
+        Shape[] shapes = { shape1, shape2, shape3 };
+        double n = 0;
+        for(Shape shape : shapes) {
+            n = n + shape.area();
+        }
+        System.out.println(n);
     }
 }
