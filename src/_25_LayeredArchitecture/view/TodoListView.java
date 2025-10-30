@@ -1,9 +1,10 @@
 package _25_LayeredArchitecture.view;
 
+import _25_LayeredArchitecture.dto.TodoRegisterReqDto;
 import _25_LayeredArchitecture.entity.User;
 import _25_LayeredArchitecture.dto.SigninReqDto;
 import _25_LayeredArchitecture.dto.SignupReqDto;
-import _25_LayeredArchitecture.repository.UserList;
+import _25_LayeredArchitecture.service.TodoService;
 import _25_LayeredArchitecture.service.UserService;
 
 import java.util.Scanner;
@@ -12,6 +13,7 @@ public class TodoListView {
     private Scanner scanner;
     private User principal;
     private UserService userService;
+    private TodoService todoService;
 
     public TodoListView(UserService userService) {
         scanner = new Scanner(System.in);
@@ -34,6 +36,7 @@ public class TodoListView {
 
             if ("q".equals(cmd)) break;
             else if ("1".equals(cmd)) {
+                todoListMenuView();
                 // TodoList 관리
                 if (principal == null) System.out.println("로그인 후 사용 가능합니다.");
             } else if ("2".equals(cmd) && principal == null) {
@@ -41,7 +44,8 @@ public class TodoListView {
                 signupView();
             } else if ("2".equals(cmd) && principal != null) {
                 // 로그아웃
-                signoutView();
+                principal = null;
+                System.out.println("로그아웃 되었습니다.");
             } else if ("3".equals(cmd) && principal == null) {
                 // 로그인
                 signinView();
@@ -50,7 +54,7 @@ public class TodoListView {
     }
 
     // 회원가입 뷰
-    void signupView() {
+    public void signupView() {
         System.out.println("[ 회원가입 ]");
         String username;
         String password;
@@ -84,7 +88,7 @@ public class TodoListView {
         // 조회할 수 있는 로직
     }
     // 로그인 뷰
-    void signinView() {
+    public void signinView() {
         System.out.println("[ 로그인 ]");
         String username;
         String password;
@@ -100,8 +104,36 @@ public class TodoListView {
         principal = foundUser;
         System.out.println("로그인 성공");
     }
-    // 로그아웃 뷰
-    void signoutView() {
-        System.out.println("로그아웃 되었습니다.");
+
+    public void todoListMenuView() {
+        while (true) {
+            System.out.println("[ TodoList Menu ]");
+            System.out.println("1. Todo 등록");
+            System.out.println("2. Todo 조회");
+            System.out.println("b. 뒤로가기");
+            System.out.print(">>> ");
+            String cmd = scanner.nextLine();
+
+            if ("b".equals(cmd)) break;
+            else if ("1".equals(cmd))
+            {
+                System.out.println("[ Todo 등록 ]");
+                todoUp();
+            }
+            // LocalDateRime.now()
+            else if ("2".equals(cmd)) {
+                System.out.println("[ Todo 조회 ]");
+                todoPrint();
+            }
+            else System.out.println("잘못입력하였습니다.");
+        }
+    }
+    public void todoUp() {
+        String contents = scanner.nextLine();
+        TodoRegisterReqDto todoRegisterReqDto = new TodoRegisterReqDto(contents, principal);
+        todoService.todoUp(todoRegisterReqDto);
+    }
+    public void todoPrint() {
+        todoService.printAllTodoList();
     }
 }
