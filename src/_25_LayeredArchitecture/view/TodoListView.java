@@ -15,9 +15,10 @@ public class TodoListView {
     private UserService userService;
     private TodoService todoService;
 
-    public TodoListView(UserService userService) {
+    public TodoListView(UserService userService, TodoService todoService) {
         scanner = new Scanner(System.in);
         this.userService = userService;
+        this.todoService = todoService;
     }
 
     public void homeView() {
@@ -87,6 +88,7 @@ public class TodoListView {
         userService.printAllUserList();
         // 조회할 수 있는 로직
     }
+
     // 로그인 뷰
     public void signinView() {
         System.out.println("[ 로그인 ]");
@@ -115,25 +117,19 @@ public class TodoListView {
             String cmd = scanner.nextLine();
 
             if ("b".equals(cmd)) break;
-            else if ("1".equals(cmd))
-            {
+            else if ("1".equals(cmd)) {
                 System.out.println("[ Todo 등록 ]");
-                todoUp();
+                System.out.print("오늘 할 일 >> ");
+                String contents = scanner.nextLine();
+                TodoRegisterReqDto todoRegisterReqDto = new TodoRegisterReqDto(contents, principal);
+                // 투두 등록
+                todoService.register(todoRegisterReqDto);
             }
             // LocalDateRime.now()
             else if ("2".equals(cmd)) {
                 System.out.println("[ Todo 조회 ]");
-                todoPrint();
-            }
-            else System.out.println("잘못입력하였습니다.");
+                todoService.printAllTodoByUser(principal);
+            } else System.out.println("잘못입력하였습니다.");
         }
-    }
-    public void todoUp() {
-        String contents = scanner.nextLine();
-        TodoRegisterReqDto todoRegisterReqDto = new TodoRegisterReqDto(contents, principal);
-        todoService.todoUp(todoRegisterReqDto);
-    }
-    public void todoPrint() {
-        todoService.printAllTodoList();
     }
 }

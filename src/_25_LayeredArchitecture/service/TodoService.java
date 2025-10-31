@@ -12,12 +12,12 @@ public class TodoService {
     public TodoService(TodoList todoList) {
         this.todoList = todoList;
     }
-    public void printAllTodoList() {
-        System.out.println("[[ Todo 조회 ]]");
-        for (Todo todo : todoList.getAllTodo()) System.out.println(todo);
+    public void printAllTodoByUser(User user) {
+        Todo[] foundTodos = todoList.findAllByUserId(user.getUserId());
+        for (Todo todo : foundTodos) System.out.println(todo);
     }
-    public void todoUp(TodoRegisterReqDto todoRegisterReqDto) {
-        Todo todo = todoRegisterReqDto.register();
+    public void register(TodoRegisterReqDto todoRegisterReqDto) {
+        Todo todo = todoRegisterReqDto.toEntity();
         todo.setTodoId(todoList.generateTodoId());
         todoList.add(todo);
 

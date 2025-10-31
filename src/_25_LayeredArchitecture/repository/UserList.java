@@ -42,7 +42,7 @@ public class UserList {
         for (User user1 : users) {
             a = users;
         }
-        a[users.length] = new User(generateUserId(), user.getUsername(), user.getPassword(), user.getName());
+        a[users.length] = user;
         users = a;
     }
 }
