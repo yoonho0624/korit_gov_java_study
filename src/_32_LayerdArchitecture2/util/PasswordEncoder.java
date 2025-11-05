@@ -1,0 +1,24 @@
+package _32_LayerdArchitecture2.util;
+
+import java.util.List;
+import java.util.Objects;
+
+public class PasswordEncoder {
+    private static final String secrets = "암호화 비밀번호";
+    public static String encode(String str) {
+        if (str == null) return null;
+        System.out.println("hash : " + Objects.hash(str));
+        long hash = Integer.toUnsignedLong(Objects.hash(str));
+        System.out.println("unsigned hash : " + hash);
+        long encodedHash = hash + Objects.hash(secrets);
+        System.out.println("secrets hash : " + Objects.hash(secrets));
+        System.out.println("encodeHash : " + encodedHash);
+        System.out.println("toHexString : " + Long.toHexString(encodedHash));
+        return Long.toHexString(encodedHash);
+    }
+
+    public static boolean match(String 평문, String 암호문) {
+        if (평문 == null || 암호문 == null) return false;
+        return encode(평문).equals(암호문);
+    }
+}
