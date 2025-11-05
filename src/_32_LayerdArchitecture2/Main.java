@@ -3,6 +3,7 @@ package _32_LayerdArchitecture2;
 import _32_LayerdArchitecture2.dto.SigninReqDto;
 import _32_LayerdArchitecture2.dto.SignupReqDto;
 import _32_LayerdArchitecture2.entity.User;
+import _32_LayerdArchitecture2.repository.UserRepositoryImpl2;
 import _32_LayerdArchitecture2.service.SigninService;
 import _32_LayerdArchitecture2.service.SigninServiceImpl;
 import _32_LayerdArchitecture2.service.SignupService;
@@ -69,6 +70,7 @@ public class Main {
                 signinServiceImpl.signin(signinReqDto);
             } else if ("3".equals(selectedMenu)) {
                 System.out.println("[ 가입된 회원 전체 조회 ]");
+                System.out.println(UserRepositoryImpl2.getInstance().toString());
             } else {
                 System.out.println("메뉴를 다시 선택해주세요.");
             }
